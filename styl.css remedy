@@ -1,0 +1,129 @@
+/* Obecné nastavení */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif; /* Základní písmo pro čitelnost */
+    background-color: #000; /* Černé pozadí pro Matrixový efekt */
+    color: #00ff00; /* Zelený text, jak v Matrixu */
+    line-height: 1.6;
+}
+
+/* Nadpisy */
+h1, h2 {
+    font-family: 'Orbitron', sans-serif; /* Okrasné písmo pro nadpisy */
+    font-weight: bold;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; /* Zelený glow efekt pro nadpisy */
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+    text-transform: uppercase; /* Pro zvýšení "futuristického" vzhledu */
+    letter-spacing: 2px;
+}
+
+/* Sekce a texty */
+header, .contact, .services, .reservation, footer {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Kontaktní informace */
+.contact a {
+    color: #00ff00;
+    font-size: 1.2rem;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.contact a:hover {
+    color: #fff;
+}
+
+/* Sekce služeb */
+.services p {
+    font-size: 1.3rem;
+    font-family: 'Courier New', Courier, monospace;
+    color: #00ff00;
+}
+
+/* Rezervace - tabulka */
+.reservation table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 80%;
+    border: 2px solid #00ff00;
+}
+
+.reservation th, .reservation td {
+    border: 1px solid #00ff00;
+    padding: 12px 18px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.reservation th {
+    background-color: #333;
+    color: #00ff00;
+    font-size: 1.4rem;
+}
+
+.reservation td {
+    background-color: #111;
+    color: #00ff00;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.reservation td:hover {
+    background-color: #00ff00;
+    color: #000;
+}
+
+.reservation .available {
+    background-color: #111;
+}
+
+.reservation .available:hover {
+    background-color: #00ff00;
+    color: #000;
+}
+
+.reservation .booked {
+    background-color: #333;
+    color: #666;
+    cursor: not-allowed;
+}
+
+footer {
+    background-color: #333;
+    color: #00ff00;
+    padding: 10px;
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+/* Glowing Effect for Links */
+a {
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00ff00;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #fff;
+    text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00;
+}
