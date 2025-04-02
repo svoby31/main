@@ -1,129 +1,85 @@
-/* Obecné nastavení */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fce4ec;
+  padding: 20px;
 }
 
-body {
-    font-family: 'Roboto', sans-serif; /* Základní písmo pro čitelnost */
-    background-color: #000; /* Černé pozadí pro Matrixový efekt */
-    color: #00ff00; /* Zelený text, jak v Matrixu */
-    line-height: 1.6;
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #d81b60;
+  margin-bottom: 15px;
 }
 
-/* Nadpisy */
-h1, h2 {
-    font-family: 'Orbitron', sans-serif; /* Okrasné písmo pro nadpisy */
-    font-weight: bold;
-    color: #00ff00;
-    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; /* Zelený glow efekt pro nadpisy */
+.contact {
+  font-size: 1.2rem;
+  color: #c2185b;
 }
 
-h1 {
-    font-size: 3rem;
+.card {
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
 }
 
-h2 {
-    font-size: 2rem;
-    text-transform: uppercase; /* Pro zvýšení "futuristického" vzhledu */
-    letter-spacing: 2px;
+.subtitle {
+  font-size: 1.8rem;
+  color: #d81b60;
+  margin-bottom: 10px;
 }
 
-/* Sekce a texty */
-header, .contact, .services, .reservation, footer {
-    text-align: center;
-    padding: 20px;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* Kontaktní informace */
-.contact a {
-    color: #00ff00;
-    font-size: 1.2rem;
-    text-decoration: none;
-    font-weight: bold;
-    text-transform: uppercase;
+.input {
+  border: 2px solid #d81b60;
 }
 
-.contact a:hover {
-    color: #fff;
+.button {
+  background: #d81b60;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
 }
 
-/* Sekce služeb */
-.services p {
-    font-size: 1.3rem;
-    font-family: 'Courier New', Courier, monospace;
-    color: #00ff00;
+.table-container {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 500px;
 }
 
-/* Rezervace - tabulka */
-.reservation table {
-    margin: 20px auto;
-    border-collapse: collapse;
-    width: 80%;
-    border: 2px solid #00ff00;
+.table-row:hover {
+  background: #f8bbd0;
 }
 
-.reservation th, .reservation td {
-    border: 1px solid #00ff00;
-    padding: 12px 18px;
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
+.detail-button {
+  background: #e91e63;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
-.reservation th {
-    background-color: #333;
-    color: #00ff00;
-    font-size: 1.4rem;
+.dialog-content {
+  padding: 20px;
 }
 
-.reservation td {
-    background-color: #111;
-    color: #00ff00;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.dialog-title {
+  font-size: 1.5rem;
+  color: #d81b60;
 }
 
-.reservation td:hover {
-    background-color: #00ff00;
-    color: #000;
-}
-
-.reservation .available {
-    background-color: #111;
-}
-
-.reservation .available:hover {
-    background-color: #00ff00;
-    color: #000;
-}
-
-.reservation .booked {
-    background-color: #333;
-    color: #666;
-    cursor: not-allowed;
-}
-
-footer {
-    background-color: #333;
-    color: #00ff00;
-    padding: 10px;
-    font-size: 1rem;
-    font-family: 'Courier New', Courier, monospace;
-    text-align: center;
-}
-
-/* Glowing Effect for Links */
-a {
-    color: #00ff00;
-    text-decoration: none;
-    font-weight: bold;
-    text-shadow: 0 0 10px #00ff00;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: #fff;
-    text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00;
+.dialog-text {
+  font-size: 1.1rem;
+  color: #666;
 }
