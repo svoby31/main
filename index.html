@@ -1,179 +1,91 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Remedy Hair Salon</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
-        .contact {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .contact a {
-            color: #333;
-            font-size: 1.2rem;
-            text-decoration: none;
-        }
-        .services {
-            text-align: center;
-            margin: 40px 0;
-        }
-        .services h2 {
-            font-size: 1.8rem;
-        }
-        .services p {
-            font-size: 1.2rem;
-        }
-        .reservation {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .reservation table {
-            margin: 20px auto;
-            border-collapse: collapse;
-            width: 80%;
-        }
-        .reservation th, .reservation td {
-            border: 1px solid #ddd;
-            padding: 8px 12px;
-            text-align: center;
-        }
-        .reservation th {
-            background-color: #333;
-            color: white;
-        }
-        .reservation td {
-            background-color: #fff;
-        }
-        .reservation td.booked {
-            background-color: #e0e0e0;
-        }
-        .footer {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Remedy Hair Salon</h1>
-    </header>
+// RemedyHairSalon.jsx
+import { useState } from "react";
+import "./RemedyHairSalon.css";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import { motion } from "framer-motion";
 
-    <div class="contact">
-        <p>Telefon: <a href="tel:+420732431714">+420 732 431 714</a></p>
+export default function RemedyHairSalon() {
+  const [appointments, setAppointments] = useState([
+    { name: "Jana Nováková", time: "10:00" },
+    { name: "Klára Veselá", time: "11:00" },
+  ]);
+  const [name, setName] = useState("");
+  const [time, setTime] = useState("");
+
+  const addAppointment = () => {
+    if (name && time) {
+      setAppointments([...appointments, { name, time }]);
+      setName("");
+      setTime("");
+    }
+  };
+
+  return (
+    <div className="container">
+      <motion.h1 className="title" animate={{ scale: 1.1 }}>
+        Remedy Hair Salon
+      </motion.h1>
+      <p className="contact">Adresa: Remedy Hair Salon</p>
+      <p className="contact">Telefon: 732 431 714</p>
+
+      <Card className="card">
+        <CardContent>
+          <h2 className="subtitle">Rezervace</h2>
+          <div className="form-group">
+            <Input
+              placeholder="Jméno"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="input"
+            />
+            <Input
+              placeholder="Čas (např. 14:30)"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              className="input"
+            />
+            <Button onClick={addAppointment} className="button">
+              Přidat rezervaci
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="table-container">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Jméno</TableHead>
+              <TableHead>Čas</TableHead>
+              <TableHead>Detail</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {appointments.map((appointment, index) => (
+              <TableRow key={index} className="table-row">
+                <TableCell>{appointment.name}</TableCell>
+                <TableCell>{appointment.time}</TableCell>
+                <TableCell>
+                  <Dialog>
+                    <DialogTrigger>
+                      <Button className="detail-button">Podrobnosti</Button>
+                    </DialogTrigger>
+                    <DialogContent className="dialog-content">
+                      <h3 className="dialog-title">Pánský střih</h3>
+                      <p className="dialog-text">Cena: 350 Kč</p>
+                      <p className="dialog-text">Služby: Umytí, stříhání, styling</p>
+                    </DialogContent>
+                  </Dialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
-
-    <div class="services">
-        <h2>Naše služby</h2>
-        <p><strong>Pánský střih</strong>: 350 Kč (v ceně je kompletní pánský střih, mytí, sušení a styling).</p>
-    </div>
-
-    <div class="reservation">
-        <h2>Rezervace pro pánský střih</h2>
-        <p>Vyberte si čas v pondělí mezi 9:00 a 18:00. Ostatní dny jsou plné.</p>
-
-        <table>
-            <tr>
-                <th>Čas</th>
-                <th>Pondělí</th>
-            </tr>
-            <tr>
-                <td>09:00</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>09:30</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>10:00</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>10:30</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>11:00</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>11:30</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>12:00</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>12:30</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>13:00</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>13:30</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>14:00</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>14:30</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>15:00</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>15:30</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>16:00</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>16:30</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>17:00</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-            <tr>
-                <td>17:30</td>
-                <td class="available"><a href="#">Rezervovat</a></td>
-            </tr>
-        </table>
-    </div>
-
-    <footer class="footer">
-        <p>&copy; 2025 Remedy Hair Salon | Všechna práva vyhrazena</p>
-    </footer>
-</body>
-</html>
+  );
+}
