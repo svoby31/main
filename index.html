@@ -1,91 +1,29 @@
-// RemedyHairSalon.jsx
-import { useState } from "react";
-import "./RemedyHairSalon.css";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
-import { motion } from "framer-motion";
-
-export default function RemedyHairSalon() {
-  const [appointments, setAppointments] = useState([
-    { name: "Jana Nováková", time: "10:00" },
-    { name: "Klára Veselá", time: "11:00" },
-  ]);
-  const [name, setName] = useState("");
-  const [time, setTime] = useState("");
-
-  const addAppointment = () => {
-    if (name && time) {
-      setAppointments([...appointments, { name, time }]);
-      setName("");
-      setTime("");
-    }
-  };
-
-  return (
-    <div className="container">
-      <motion.h1 className="title" animate={{ scale: 1.1 }}>
-        Remedy Hair Salon
-      </motion.h1>
-      <p className="contact">Adresa: Remedy Hair Salon</p>
-      <p className="contact">Telefon: 732 431 714</p>
-
-      <Card className="card">
-        <CardContent>
-          <h2 className="subtitle">Rezervace</h2>
-          <div className="form-group">
-            <Input
-              placeholder="Jméno"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="input"
-            />
-            <Input
-              placeholder="Čas (např. 14:30)"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className="input"
-            />
-            <Button onClick={addAppointment} className="button">
-              Přidat rezervaci
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      <div className="table-container">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Jméno</TableHead>
-              <TableHead>Čas</TableHead>
-              <TableHead>Detail</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {appointments.map((appointment, index) => (
-              <TableRow key={index} className="table-row">
-                <TableCell>{appointment.name}</TableCell>
-                <TableCell>{appointment.time}</TableCell>
-                <TableCell>
-                  <Dialog>
-                    <DialogTrigger>
-                      <Button className="detail-button">Podrobnosti</Button>
-                    </DialogTrigger>
-                    <DialogContent className="dialog-content">
-                      <h3 className="dialog-title">Pánský střih</h3>
-                      <p className="dialog-text">Cena: 350 Kč</p>
-                      <p className="dialog-text">Služby: Umytí, stříhání, styling</p>
-                    </DialogContent>
-                  </Dialog>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remedy Hair Salon</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Remedy Hair Salon</h1>
+    <div class="card">
+      <h2>Objednej se na pondělí (9:00 – 18:00)</h2>
+      <input type="text" id="name" placeholder="Tvé jméno" />
+      <input type="text" id="phone" placeholder="Telefonní číslo" />
+      <button onclick="bookAppointment()">Objednat se</button>
     </div>
-  );
-}
+    <div class="appointments">
+      <h3>Rezervace:</h3>
+      <ul id="appointmentList"></ul>
+    </div>
+    <div class="info">
+      <p>Telefon pro více informací: <strong>732 431 714</strong></p>
+      <p>Cena: <strong>350 Kč</strong> – Pánský střih s mytím a stylingem</p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
