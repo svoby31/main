@@ -13,6 +13,8 @@
       <h2>Objednej se na pondělí (9:00 – 18:00)</h2>
       <input type="text" id="name" placeholder="Tvé jméno" />
       <input type="text" id="phone" placeholder="Telefonní číslo" />
+      <input type="date" id="date" />
+      <input type="time" id="time" min="09:00" max="18:00" />
       <button onclick="bookAppointment()">Objednat se</button>
     </div>
     <div class="appointments">
@@ -22,6 +24,18 @@
     <div class="info">
       <p>Telefon pro více informací: <strong>732 431 714</strong></p>
       <p>Cena: <strong>350 Kč</strong> – Pánský střih s mytím a stylingem</p>
+      <p>Najdete nás v Mělníku na ulici Studenská</p>
+      <div class="map">
+        <iframe
+          src="https://www.google.com/maps?q=Studenská+Mělník&output=embed"
+          width="100%"
+          height="300"
+          style="border:0; border-radius: 1rem; margin-top: 1rem;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
     </div>
   </div>
   <script src="script.js"></script>
