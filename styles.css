@@ -1,85 +1,71 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffe6f0;
+  margin: 0;
+  padding: 0;
+}
+
 .container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #fce4ec;
-  padding: 20px;
-}
-
-.title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #d81b60;
-  margin-bottom: 15px;
-}
-
-.contact {
-  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
   color: #c2185b;
 }
 
+h1 {
+  font-size: 3rem;
+  color: #e91e63;
+  margin-bottom: 1.5rem;
+}
+
 .card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+input {
+  display: block;
   width: 100%;
-  max-width: 500px;
-  background: white;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 20px;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
 }
 
-.subtitle {
-  font-size: 1.8rem;
-  color: #d81b60;
-  margin-bottom: 10px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.input {
-  border: 2px solid #d81b60;
-}
-
-.button {
-  background: #d81b60;
+button {
+  background-color: #ec407a;
   color: white;
-  border-radius: 10px;
-  padding: 10px;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
   cursor: pointer;
+  font-weight: bold;
 }
 
-.table-container {
-  margin-top: 20px;
-  width: 100%;
-  max-width: 500px;
+button:hover {
+  background-color: #d81b60;
 }
 
-.table-row:hover {
-  background: #f8bbd0;
+.appointments ul {
+  list-style: none;
+  padding: 0;
 }
 
-.detail-button {
-  background: #e91e63;
-  color: white;
-  border-radius: 5px;
-  padding: 5px 10px;
+.appointments li {
+  background: white;
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border-left: 5px solid #ec407a;
+  text-align: left;
 }
 
-.dialog-content {
-  padding: 20px;
-}
-
-.dialog-title {
-  font-size: 1.5rem;
-  color: #d81b60;
-}
-
-.dialog-text {
+.info {
+  margin-top: 2rem;
   font-size: 1.1rem;
-  color: #666;
+  color: #880e4f;
 }
