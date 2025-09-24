@@ -2,43 +2,181 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Remedy Hair Salon</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>Objednávky - Remedy Hair Salon</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    .container {
+      background-color: #fff;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    input, button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f7f7f7;
+    }
+    .error {
+      color: red;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Remedy Hair Salon</h1>
-    <div class="card">
-      <h2>Objednej se na pondělí (9:00 – 18:00)</h2>
-      <input type="text" id="name" placeholder="Tvé jméno" />
-      <input type="text" id="phone" placeholder="Telefonní číslo" />
-      <input type="date" id="date" />
-      <input type="time" id="time" min="09:00" max="18:00" />
-      <button onclick="bookAppointment()">Objednat se</button>
-    </div>
-    <div class="appointments">
-      <h3>Rezervace:</h3>
-      <ul id="appointmentList"></ul>
-    </div>
-    <div class="info">
-      <p>Telefon pro více informací: <strong>732 431 714</strong></p>
-      <p>Cena: <strong>350 Kč</strong> – Pánský střih s mytím a stylingem</p>
-      <p>Najdete nás v Mělníku na ulici Studenská</p>
-      <div class="map">
-        <iframe
-          src="https://www.google.com/maps?q=Studenská+Mělník&output=embed"
-          width="100%"
-          height="300"
-          style="border:0; border-radius: 1rem; margin-top: 1rem;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
-      </div>
-    </div>
+
+<div class="container">
+  <h1>Remedy Hair Salon</h1>
+  <div class="card">
+    <h2>Objednej se na pondělí (9:00 – 18:00)</h2>
+    <input type="text" id="name" placeholder="Tvé jméno" />
+    <input type="text" id="phone" placeholder="Telefonní číslo" />
+    <input type="date" id="date" />
+    <input type="time" id="time" min="09:00" max="18:00" />
+    <button onclick="bookAppointment()">Objednat se</button>
+    <div class="error" id="error"></div>
   </div>
-  <script src="script.js"></script>
+
+  <!-- Tabulka jen pro admina -->
+  <div id="adminTableSection" class="hidden">
+    <h2>Seznam objednávek</h2>
+    <table id="appointmentsTable">
+      <thead>
+        <tr>
+          <th>Jméno</th>
+          <th>Telefon</th>
+          <th>Datum</th>
+          <th>Čas</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true";
+
+  function loadAppointments() {
+    const stored = localStorage.getItem("appointments");
+    return stored ? JSON.parse(stored) : [];
+  }
+
+  function saveAppointments(appointments) {
+    localStorage.setItem("appointments", JSON.stringify(appointments));
+  }
+
+  function isSlotTaken(date, time) {
+    const appointments = loadAppointments();
+    return appointments.some(app => app.date === date && app.time === time);
+  }
+
+  function showAppointmentsForAdmin() {
+    if (!isAdmin) return;
+
+    const section = document.getElementById("adminTableSection");
+    section.classList.remove("hidden");
+
+    const tableBody = document.getElementById("appointmentsTable").querySelector("tbody");
+    tableBody.innerHTML = ""; // vymaž předchozí záznamy
+
+    const appointments = loadAppointments();
+    appointments.forEach(app => {
+      const row = tableBody.insertRow();
+      row.insertCell(0).textContent = app.name;
+      row.insertCell(1).textContent = app.phone;
+      row.insertCell(2).textContent = app.date;
+      row.insertCell(3).textContent = app.time;
+    });
+  }
+
+  function bookAppointment() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+    const errorDiv = document.getElementById('error');
+    errorDiv.textContent = '';
+
+    if (!name || !phone || !date || !time) {
+      errorDiv.textContent = 'Vyplň prosím všechna pole.';
+      return;
+    }
+
+    const appointmentDate = new Date(date);
+    if (appointmentDate.getDay() !== 1) {
+      errorDiv.textContent = 'Objednávky jsou možné pouze na pondělí.';
+      return;
+    }
+
+    if (isSlotTaken(date, time)) {
+      errorDiv.textContent = 'Tento termín už je obsazený. Vyber jiný čas.';
+      return;
+    }
+
+    // Uložit objednávku
+    const newAppointment = { name, phone, date, time };
+    const appointments = loadAppointments();
+    appointments.push(newAppointment);
+    saveAppointments(appointments);
+
+    // Pokud jsi admin, zaktualizuj tabulku
+    if (isAdmin) {
+      showAppointmentsForAdmin();
+    }
+
+    // Vymazat formulář
+    document.getElementById('name').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('date').value = '';
+    document.getElementById('time').value = '';
+
+    alert("Děkujeme za objednávku!");
+  }
+
+  // Načti objednávky hned po načtení, pokud admin
+  window.onload = () => {
+    if (isAdmin) {
+      showAppointmentsForAdmin();
+    }
+  }
+</script>
+
 </body>
 </html>
